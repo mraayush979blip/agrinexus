@@ -132,7 +132,7 @@ const MandiPage = () => {
 
     const q = query(collection(db, 'listings'), orderBy('createdAt', 'desc'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      const docs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const docs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as any[];
       setAllListings(docs);
       
       if (user) {
