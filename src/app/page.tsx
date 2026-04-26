@@ -48,7 +48,7 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="space-y-40 pb-40 overflow-x-hidden selection:bg-emerald-200 selection:text-emerald-900">
+    <div className="space-y-24 md:space-y-40 pb-40 overflow-x-hidden selection:bg-emerald-200 selection:text-emerald-900">
       
       {/* Dynamic Background Blobs */}
       <div className="fixed inset-0 -z-10 pointer-events-none">
@@ -74,9 +74,9 @@ const LandingPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-6xl md:text-8xl font-black font-outfit text-slate-900 leading-[1] tracking-tight"
+            className="text-5xl md:text-8xl font-black font-outfit text-slate-900 leading-[1.1] md:leading-[1] tracking-tight"
           >
-            Empowering the <br />
+            Empowering the <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-emerald-500 to-blue-600">Digital Farmer.</span>
           </motion.h1>
 
@@ -84,7 +84,7 @@ const LandingPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-slate-500 text-lg md:text-2xl max-w-3xl mx-auto leading-relaxed font-medium"
+            className="text-slate-500 text-base md:text-2xl max-w-3xl mx-auto leading-relaxed font-medium px-4"
           >
             AgriNexus is the world's first closed-loop AI ecosystem designed to eliminate crop loss and maximize profit for 100 Million+ farmers.
           </motion.p>
@@ -144,7 +144,7 @@ const LandingPage = () => {
 
       {/* Impact Stats: Proof of Winning */}
       <section className="max-w-7xl mx-auto px-4">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {stats.map((stat, i) => {
             const Icon = stat.icon;
             return (
@@ -170,10 +170,10 @@ const LandingPage = () => {
       </section>
 
       {/* The Closed-Loop Ecosystem Walkthrough */}
-      <section className="max-w-7xl mx-auto px-4 space-y-32">
+      <section className="max-w-7xl mx-auto px-4 space-y-20 md:space-y-32">
         <div className="text-center space-y-4">
-           <h2 className="text-5xl md:text-6xl font-black text-slate-900 font-outfit">A Full-Stack Solution.</h2>
-           <p className="text-slate-500 text-xl font-medium max-w-2xl mx-auto">From seed to sale, AgriNexus follows the entire farmer's journey.</p>
+           <h2 className="text-4xl md:text-6xl font-black text-slate-900 font-outfit leading-tight">A Full-Stack Solution.</h2>
+           <p className="text-slate-500 text-lg md:text-xl font-medium max-w-2xl mx-auto">From seed to sale, AgriNexus follows the entire farmer's journey.</p>
         </div>
 
         <div className="grid grid-cols-1 gap-40">
@@ -188,8 +188,8 @@ const LandingPage = () => {
                 <Satellite size={32} />
               </div>
               <div className="space-y-4">
-                <h3 className="text-4xl font-black text-slate-900 font-outfit uppercase tracking-tight">01. Satellite Intelligence</h3>
-                <p className="text-xl text-slate-500 leading-relaxed font-medium">
+                <h3 className="text-3xl md:text-4xl font-black text-slate-900 font-outfit uppercase tracking-tight">01. Satellite Intelligence</h3>
+                <p className="text-lg md:text-xl text-slate-500 leading-relaxed font-medium">
                   We use microwave remote sensing to track soil moisture, crop health, and precipitation directly from space. No expensive hardware or physical devices required on the farm.
                 </p>
               </div>
@@ -231,8 +231,8 @@ const LandingPage = () => {
                 <ShieldCheck size={32} />
               </div>
               <div className="space-y-4">
-                <h3 className="text-4xl font-black text-slate-900 font-outfit uppercase tracking-tight">02. Health Doctor AI</h3>
-                <p className="text-xl text-slate-500 leading-relaxed font-medium">
+                <h3 className="text-3xl md:text-4xl font-black text-slate-900 font-outfit uppercase tracking-tight">02. Health Doctor AI</h3>
+                <p className="text-lg md:text-xl text-slate-500 leading-relaxed font-medium">
                   Scan any crop with your mobile camera. Our proprietary Edge AI identifies thousands of diseases in seconds and prescribes targeted treatments immediately.
                 </p>
               </div>
@@ -262,8 +262,8 @@ const LandingPage = () => {
                 <TrendingUp size={32} />
               </div>
               <div className="space-y-4">
-                <h3 className="text-4xl font-black text-slate-900 font-outfit uppercase tracking-tight">03. Smart Mandi (ONDC)</h3>
-                <p className="text-xl text-slate-500 leading-relaxed font-medium">
+                <h3 className="text-3xl md:text-4xl font-black text-slate-900 font-outfit uppercase tracking-tight">03. Smart Mandi (ONDC)</h3>
+                <p className="text-lg md:text-xl text-slate-500 leading-relaxed font-medium">
                   Skip the middlemen. List your graded produce directly on India's ONDC network. Reach wholesale buyers across the country and get paid premium prices.
                 </p>
               </div>
@@ -297,8 +297,8 @@ const LandingPage = () => {
                    <Lock size={18} className="text-emerald-400" />
                    <span className="text-xs font-bold uppercase tracking-widest">Bank-Grade Security</span>
                 </div>
-                <h2 className="text-5xl md:text-6xl font-black font-outfit leading-[1.1] tracking-tight">Your Farm Data, <br /><span className="text-emerald-400 underline decoration-white/20 underline-offset-8">Fortified.</span></h2>
-                <p className="text-emerald-50/70 text-xl font-medium leading-relaxed max-w-lg">
+                <h2 className="text-4xl md:text-6xl font-black font-outfit leading-[1.1] tracking-tight">Your Farm Data, <br /><span className="text-emerald-400 underline decoration-white/20 underline-offset-8">Fortified.</span></h2>
+                <p className="text-emerald-50/70 text-lg md:text-xl font-medium leading-relaxed max-w-lg">
                    We use end-to-end encryption to protect your identity, land records, and financial transactions. Your data stays yours.
                 </p>
                 <div className="flex items-center gap-8 pt-4 grayscale brightness-0 invert opacity-40">
@@ -353,8 +353,8 @@ const LandingPage = () => {
             initial={{ scale: 0.95, opacity: 0 }}
             className="space-y-8"
           >
-            <h2 className="text-6xl md:text-7xl font-black text-slate-900 font-outfit leading-[1.1] tracking-tight">Ready to Re-Nexus <br />Your Farm?</h2>
-            <p className="text-slate-500 text-xl md:text-2xl font-medium max-w-2xl mx-auto leading-relaxed">
+            <h2 className="text-4xl md:text-7xl font-black text-slate-900 font-outfit leading-[1.1] tracking-tight">Ready to Re-Nexus <br />Your Farm?</h2>
+            <p className="text-slate-500 text-lg md:text-2xl font-medium max-w-2xl mx-auto leading-relaxed">
               Join the agritech revolution. Sign up today and experience the power of the Digital Farmer ecosystem.
             </p>
          </motion.div>
