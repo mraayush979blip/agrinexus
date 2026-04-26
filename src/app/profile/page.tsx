@@ -156,7 +156,7 @@ const ProfilePage = () => {
            value={formData.name} 
            icon={<User size={18} />} 
            isEditing={isEditing} 
-           onChange={(val) => setFormData({...formData, name: val})}
+           onChange={(val: string) => setFormData({...formData, name: val})}
          />
 
          <DetailField 
@@ -165,7 +165,7 @@ const ProfilePage = () => {
            icon={<Phone size={18} />} 
            isEditing={isEditing} 
            placeholder="+91 XXXXX XXXXX"
-           onChange={(val) => setFormData({...formData, phone: val})}
+           onChange={(val: string) => setFormData({...formData, phone: val})}
          />
 
          <DetailField 
@@ -174,7 +174,7 @@ const ProfilePage = () => {
            icon={<MapPin size={18} />} 
            isEditing={isEditing} 
            placeholder="e.g. Madhya Pradesh"
-           onChange={(val) => setFormData({...formData, state: val})}
+           onChange={(val: string) => setFormData({...formData, state: val})}
          />
 
          <DetailField 
@@ -183,7 +183,7 @@ const ProfilePage = () => {
            icon={<MapPin size={18} />} 
            isEditing={isEditing} 
            placeholder="e.g. Indore"
-           onChange={(val) => setFormData({...formData, district: val})}
+           onChange={(val: string) => setFormData({...formData, district: val})}
          />
 
          {profile.role === 'Farmer' && (
@@ -194,7 +194,7 @@ const ProfilePage = () => {
                icon={<div className="font-bold text-xs">Acre</div>} 
                isEditing={isEditing} 
                type="number"
-               onChange={(val) => setFormData({...formData, landSize: val})}
+               onChange={(val: string) => setFormData({...formData, landSize: val})}
              />
              <DetailField 
                label="Primary Crop" 
@@ -202,7 +202,7 @@ const ProfilePage = () => {
                icon={<Sprout size={18} />} 
                isEditing={isEditing} 
                placeholder="e.g. Wheat"
-               onChange={(val) => setFormData({...formData, primaryCrop: val})}
+               onChange={(val: string) => setFormData({...formData, primaryCrop: val})}
              />
            </>
          )}
