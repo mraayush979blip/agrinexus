@@ -8,12 +8,21 @@ import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
 
 const ProfilePage = () => {
-  const { user, profile, logout } = useAuth();
+  const { user, profile, loading, logout } = useAuth();
   const router = useRouter();
 
-  if (!user || !profile) {
-    if (typeof window !== 'undefined') router.push('/login');
-    return null;
+  React.useEffect(() => {
+    if (!loading && (!user || !profile)) {
+      router.push('/login');
+    }
+  }, [user, profile, loading, router]);
+
+  if (loading || !user || !profile) {
+    return (
+      <div className="min-h-[80vh] flex items-center justify-center">
+        <div className="w-12 h-12 border-4 border-emerald-900 border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
   }
 
   const handleLogout = async () => {

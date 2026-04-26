@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import VoiceAssistant from "@/components/VoiceAssistant";
 import { AuthProvider } from "@/context/AuthContext";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -26,7 +25,6 @@ export default function RootLayout({
             <main className="flex-grow pb-32 pt-6 px-4 md:px-8 lg:px-16 w-full max-w-7xl mx-auto">
               {children}
             </main>
-            <VoiceAssistant />
             <Navbar />
           </div>
         </AuthProvider>

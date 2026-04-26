@@ -16,7 +16,7 @@ const Navbar = () => {
   const pathname = usePathname();
   const { profile } = useAuth();
 
-  if (pathname === '/' || pathname === '/login' || pathname === '/onboarding') return null;
+  if (pathname === '/' || pathname === '/login' || pathname === '/onboarding' || pathname === '/team') return null;
 
   let navItems = [
     { icon: Home, label: 'Home', href: '/dashboard' },
@@ -26,7 +26,7 @@ const Navbar = () => {
     navItems.push(
       { icon: Search, label: 'Scan', href: '/scan' },
       { icon: ShoppingBag, label: 'Mandi', href: '/mandi' },
-      { icon: Leaf, label: 'Vault', href: '/vault' }
+      { icon: Leaf, label: 'Schemes', href: '/schemes' }
     );
   } else if (profile?.role === 'Buyer') {
     navItems.push(

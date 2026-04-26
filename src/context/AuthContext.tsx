@@ -19,6 +19,7 @@ export interface UserProfile {
   role: 'Farmer' | 'Buyer' | 'Renter';
   landSize?: number;
   location?: string;
+  state?: string;
   verified: boolean;
 }
 
