@@ -20,7 +20,11 @@ export interface UserProfile {
   landSize?: number;
   location?: string;
   state?: string;
+  district?: string;
+  phone?: string;
+  primaryCrop?: string;
   verified: boolean;
+  onboarded: boolean;
 }
 
 interface AuthContextType {
@@ -82,7 +86,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           name: currentUser.displayName || 'User',
           photoURL: currentUser.photoURL || '',
           role: role,
-          verified: false
+          verified: false,
+          onboarded: false
         };
         await setDoc(docRef, newProfile);
         setProfile(newProfile);

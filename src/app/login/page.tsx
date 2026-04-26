@@ -14,7 +14,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (user && profile) {
-      if (profile.verified) {
+      if (profile.onboarded) {
         router.push('/dashboard');
       } else {
         router.push('/onboarding');

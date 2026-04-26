@@ -361,7 +361,13 @@ const Dashboard = () => {
         </div>
         <Link href="/profile">
           <div className="w-14 h-14 rounded-2xl bg-emerald-100 border-2 border-white shadow-sm overflow-hidden cursor-pointer hover:scale-105 transition-transform">
-             <img src={user.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${profile.name}`} alt="Profile" className="w-full h-full object-cover" />
+             <img 
+               src={user.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${profile.name}`} 
+               loading="lazy"
+               decoding="async"
+               alt="Profile" 
+               className="w-full h-full object-cover" 
+             />
           </div>
         </Link>
       </motion.div>

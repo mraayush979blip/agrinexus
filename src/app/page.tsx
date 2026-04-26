@@ -124,6 +124,8 @@ const LandingPage = () => {
             <div className="relative glass-card border-none overflow-hidden aspect-[16/9] shadow-2xl">
               <img 
                 src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80&w=2070" 
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-700" 
                 alt="AgriNexus Dashboard" 
               />
@@ -206,6 +208,8 @@ const LandingPage = () => {
                <div className="absolute inset-0 bg-blue-500/10 rounded-[3rem] blur-3xl" />
                <img 
                  src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&q=80&w=1000" 
+                 loading="lazy"
+                 decoding="async"
                  className="relative z-10 w-full rounded-[3rem] shadow-2xl border-4 border-white" 
                  alt="Satellite Farm Intelligence" 
                />
@@ -218,6 +222,8 @@ const LandingPage = () => {
                <div className="absolute inset-0 bg-emerald-500/10 rounded-[3rem] blur-3xl" />
                <img 
                  src="https://images.unsplash.com/photo-1592419044706-39796d40f98c?auto=format&fit=crop&q=80&w=1000" 
+                 loading="lazy"
+                 decoding="async"
                  className="relative z-10 w-full rounded-[3rem] shadow-2xl border-4 border-white" 
                  alt="AI Health Doctor" 
                />
@@ -279,6 +285,8 @@ const LandingPage = () => {
                <div className="absolute inset-0 bg-amber-500/10 rounded-[3rem] blur-3xl" />
                <img 
                  src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1000" 
+                 loading="lazy"
+                 decoding="async"
                  className="relative z-10 w-full rounded-[3rem] shadow-2xl border-4 border-white" 
                  alt="Smart Mandi Marketplace" 
                />

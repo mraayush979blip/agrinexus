@@ -25,7 +25,13 @@ import {
   List as ListIcon,
   Tag
 } from 'lucide-react';
-import { LineChart, Line, ResponsiveContainer, XAxis, YAxis, Tooltip, AreaChart, Area } from 'recharts';
+import dynamic from 'next/dynamic';
+const AreaChart = dynamic(() => import('recharts').then(mod => mod.AreaChart), { ssr: false });
+const Area = dynamic(() => import('recharts').then(mod => mod.Area), { ssr: false });
+const ResponsiveContainer = dynamic(() => import('recharts').then(mod => mod.ResponsiveContainer), { ssr: false });
+const Tooltip = dynamic(() => import('recharts').then(mod => mod.Tooltip), { ssr: false });
+const XAxis = dynamic(() => import('recharts').then(mod => mod.XAxis), { ssr: false });
+const YAxis = dynamic(() => import('recharts').then(mod => mod.YAxis), { ssr: false });
 import { 
   collection, 
   addDoc, 
@@ -419,7 +425,13 @@ const MandiPage = () => {
                    className="glass-card bg-white overflow-hidden border-none shadow-xl hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.15)] transition-all group"
                  >
                     <div className="relative aspect-[4/3] overflow-hidden">
-                       <img src={item.image} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={item.crop} />
+                       <img 
+                          src={item.image} 
+                          loading="lazy" 
+                          decoding="async"
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                          alt={item.crop} 
+                       />
                        <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full text-[10px] font-black text-slate-900 border border-white shadow-lg flex items-center gap-1.5">
                           <CheckCircle2 size={12} className="text-emerald-500" />
                           AI GRADED {item.grade}
