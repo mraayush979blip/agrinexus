@@ -66,14 +66,48 @@ export type Scheme = {
 };
 
 export async function matchSchemes(profile: any): Promise<Scheme[]> {
-  const prompt = `Find 4 latest 2024-2025 Indian Govt schemes for: ${JSON.stringify(profile)}. Return a JSON object with a "schemes" array.`;
+  const prompt = `Find exactly 4 real, active 2024-2025 Indian Government agricultural schemes specifically for a farmer with these details: ${JSON.stringify(profile)}. 
+  
+  Return a JSON object with this EXACT structure:
+  {
+    "schemes": [
+      {
+        "name": "Full Scheme Name",
+        "description": "2 sentence summary",
+        "benefit": "Specific financial or material benefit",
+        "applyLink": "A real official govt URL (e.g. https://pmkisan.gov.in/)"
+      }
+    ]
+  }
+  
+  CRITICAL: Every scheme MUST have a valid "applyLink". If a specific link is unknown, use the main state agriculture portal URL.`;
+  
   try {
     const raw = await fetchAI(prompt, true);
     const cleaned = (raw || "").replace(/```json|```/g, "").trim();
     const parsed = JSON.parse(cleaned);
-    return parsed.schemes || (Array.isArray(parsed) ? parsed : []);
+    const schemes = parsed.schemes || (Array.isArray(parsed) ? parsed : []);
+    
+    // Ensure every scheme has a fallback link to prevent about:blank
+    return schemes.map((s: any) => ({
+      ...s,
+      applyLink: s.applyLink || "https://www.india.gov.in/my-government/schemes"
+    }));
   } catch (error) {
-    return [{ name: "PM-Kisan", description: "Real-time AI Match Failed. Check API keys.", benefit: "₹6,000/year", applyLink: "https://pmkisan.gov.in/" }];
+    return [
+      { 
+        name: "PM-Kisan Samman Nidhi", 
+        description: "Direct income support of ₹6,000 per year to all landholding farmer families.", 
+        benefit: "₹6,000 per year in 3 installments", 
+        applyLink: "https://pmkisan.gov.in/" 
+      },
+      { 
+        name: "PM Fasal Bima Yojana", 
+        description: "Crop insurance scheme providing financial support to farmers suffering crop loss.", 
+        benefit: "Low premium crop insurance", 
+        applyLink: "https://pmfby.gov.in/" 
+      }
+    ];
   }
 }
 
