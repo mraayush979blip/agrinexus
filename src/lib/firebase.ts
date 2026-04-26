@@ -14,11 +14,21 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase (Singleton pattern for Next.js)
-const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+let app;
+let db: any;
+let auth: any;
+let storage: any;
 
-// Initialize Services
-export const db = getFirestore(app);
-export const auth = getAuth(app);
-export const storage = getStorage(app);
+if (typeof window !== "undefined" || firebaseConfig.apiKey) {
+  try {
+    app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+    db = getFirestore(app);
+    auth = getAuth(app);
+    storage = getStorage(app);
+  } catch (error) {
+    console.error("Firebase initialization failed:", error);
+  }
+}
 
+export { db, auth, storage };
 export default app;

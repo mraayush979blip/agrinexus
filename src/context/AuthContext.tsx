@@ -39,6 +39,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!auth || !db) {
+      setLoading(false);
+      return;
+    }
+
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
       if (currentUser) {
@@ -57,6 +62,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const loginWithGoogle = async (role: 'Farmer' | 'Buyer' | 'Renter') => {
+    if (!auth || !db) {
+      console.error("Firebase not initialized. Check your environment variables.");
+      return;
+    }
     const provider = new GoogleAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
@@ -88,6 +97,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const logout = async () => {
+    if (!auth) return;
     try {
       await signOut(auth);
       setProfile(null);
