@@ -1,26 +1,80 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary: #064E3B;
+  --color-primary-light: #10B981;
+  --color-accent: #F59E0B;
+  --color-background: #F0FDF4;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --primary: #064E3B;
+  --primary-light: #10B981;
+  --accent: #F59E0B;
+  --background: #F0FDF4;
+  --glass: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.3);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #F0FDF4;
+  color: #0f172a;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(at 0% 0%, hsla(161, 71%, 91%, 1) 0, transparent 50%), 
+    radial-gradient(at 50% 0%, hsla(142, 69%, 93%, 1) 0, transparent 50%), 
+    radial-gradient(at 100% 0%, hsla(38, 92%, 91%, 1) 0, transparent 50%);
+}
+
+@layer components {
+  .glass-card {
+    @apply backdrop-blur-xl bg-white/70 border border-white/30 rounded-3xl;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+  }
+
+  .btn-primary {
+    @apply px-6 py-3 rounded-2xl bg-emerald-900 text-white font-semibold transition-all;
+  }
+  .btn-primary:hover {
+    @apply bg-emerald-800 shadow-lg;
+  }
+  .btn-primary:active {
+    @apply scale-95;
+  }
+
+  .btn-accent {
+    @apply px-6 py-3 rounded-2xl bg-amber-500 text-white font-semibold transition-all;
+  }
+  .btn-accent:hover {
+    @apply bg-amber-600 shadow-lg;
+  }
+  .btn-accent:active {
+    @apply scale-95;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-emerald-900 to-emerald-600;
+  }
+
+  .nav-blur {
+    @apply fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md h-16 backdrop-blur-2xl bg-white/80 border border-white/40 rounded-3xl flex items-center justify-around px-6 z-50;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+}
+
+/* Custom Animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Hide scrollbar */
+::-webkit-scrollbar {
+  display: none;
 }
