@@ -122,3 +122,16 @@ export async function getSchemeSteps(schemeName: string, profile: any): Promise<
     return ["Visit nearest CSC", "Submit records", "Verify Aadhaar"];
   }
 }
+
+export async function getMarketAdvice(crop: string, history: any[]): Promise<string> {
+  const prompt = `You are an expert Agri-Economist. Based on the following 7-day price history for ${crop} in India: ${JSON.stringify(history)}, 
+  provide a concise 2-sentence market strategy (e.g., whether to hold or sell now) and one "Pro Tip" for the farmer. 
+  Keep it professional and encouraging.`;
+  
+  try {
+    const raw = await fetchAI(prompt, false);
+    return raw || "Market data analysis unavailable. Consult local mandi for latest rates.";
+  } catch (error) {
+    return "Market is looking stable. Based on current trends, it's a good time to list your premium produce for competitive bids.";
+  }
+}

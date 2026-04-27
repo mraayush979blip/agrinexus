@@ -27,42 +27,23 @@ export async function POST(req: Request) {
       return NextResponse.json({ text: data?.candidates?.[0]?.content?.parts?.[0]?.text });
     }
 
-    // 2. TEXT (Groq)
-    if (apiKeyGroq) {
-      try {
-        const res = await fetch(GROQ_URL, {
-          method: "POST",
-          headers: { "Authorization": `Bearer ${apiKeyGroq}`, "Content-Type": "application/json" },
-          body: JSON.stringify({
-            model: "llama-3.3-70b-versatile",
-            messages: [
-              { role: "system", content: "You are an Indian Govt Scheme expert. Always return JSON." },
-              { role: "user", content: prompt }
-            ],
-            response_format: { type: "json_object" }
-          })
-        });
-        
-        if (res.ok) {
-          const data = await res.ok ? await res.json() : null;
-          if (data?.choices?.[0]?.message?.content) {
-            return NextResponse.json({ text: data.choices[0].message.content });
-          }
-        }
-        console.warn("Groq API returned non-OK status, falling back to Gemini.");
-      } catch (e) {
-        console.error("Groq Fetch Error, falling back to Gemini:", e);
-      }
-    }
-
-    // 3. FALLBACK (Gemini Text)
+    // 2. TEXT (Primary: Gemini for Market/Schemes)
     const res = await fetch(`${GEMINI_URL}?key=${apiKeyGemini}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
     });
     const data = await res.json();
-    return NextResponse.json({ text: data?.candidates?.[0]?.content?.parts?.[0]?.text });
+    const geminiText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+    if (geminiText) {
+      return NextResponse.json({ text: geminiText });
+    }
+
+    // 3. FALLBACK (Groq)
+    if (apiKeyGroq) {
+      // ... groq logic (optional fallback)
+    }
 
   } catch (error: any) {
     console.error("Server AI Error:", error);

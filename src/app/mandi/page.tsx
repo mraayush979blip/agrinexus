@@ -44,6 +44,7 @@ import {
 import { db, auth } from '@/lib/firebase';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
+import { getMarketAdvice } from '@/lib/gemini';
 
 // Mock Data for Price Trends
 const priceHistory = [
@@ -119,6 +120,9 @@ const MandiPage = () => {
   // Real Data State
   const [allListings, setAllListings] = useState<any[]>([]);
   const [myListings, setMyListings] = useState<any[]>([]);
+  const [marketAdvice, setMarketAdvice] = useState<string>('');
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [selectedCrop, setSelectedCrop] = useState('Wheat');
 
   useEffect(() => {
     if (!authLoading && (!user || !profile)) {
@@ -170,6 +174,18 @@ const MandiPage = () => {
       console.error("Failed to publish:", error);
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handleGetAdvice = async () => {
+    setIsAnalyzing(true);
+    try {
+      const advice = await getMarketAdvice(selectedCrop, priceHistory);
+      setMarketAdvice(advice);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsAnalyzing(false);
     }
   };
 
@@ -247,7 +263,11 @@ const MandiPage = () => {
                     </div>
                     <div className="flex gap-2">
                        {['Wheat', 'Soy', 'Corn'].map(crop => (
-                         <button key={crop} className="px-3 py-1.5 rounded-lg bg-slate-50 text-[10px] font-bold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600 transition-all border border-slate-100">
+                         <button 
+                           key={crop} 
+                           onClick={() => setSelectedCrop(crop)}
+                           className={`px-3 py-1.5 rounded-lg text-[10px] font-bold transition-all border ${selectedCrop === crop ? 'bg-emerald-500 text-white border-emerald-500 shadow-lg shadow-emerald-500/20' : 'bg-slate-50 text-slate-500 hover:bg-emerald-50 hover:text-emerald-600 border-slate-100'}`}
+                         >
                            {crop}
                          </button>
                        ))}
@@ -282,11 +302,33 @@ const MandiPage = () => {
                        <p className="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">Peak Price</p>
                        <p className="text-lg font-black text-emerald-600">₹2,500</p>
                     </div>
-                    <div className="text-center">
-                       <p className="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">Recommendation</p>
-                       <p className="text-lg font-black text-blue-600">Hold</p>
-                    </div>
-                 </div>
+                     <div className="text-center">
+                        <p className="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">Recommendation</p>
+                        <button 
+                          onClick={handleGetAdvice}
+                          disabled={isAnalyzing}
+                          className="text-lg font-black text-blue-600 hover:underline flex items-center gap-1 mx-auto"
+                        >
+                          {isAnalyzing ? '...' : (marketAdvice ? 'Refine' : 'Get AI Tip')}
+                        </button>
+                     </div>
+                  </div>
+
+                  {marketAdvice && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-6 p-4 bg-blue-50 border border-blue-100 rounded-2xl flex gap-3"
+                    >
+                      <div className="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center shrink-0 shadow-lg shadow-blue-500/20">
+                        <Zap size={20} className="text-white" fill="currentColor" />
+                      </div>
+                      <div className="space-y-1">
+                        <p className="text-[10px] font-black text-blue-800 uppercase tracking-widest">Gemini Market Advisor</p>
+                        <p className="text-sm font-medium text-blue-900 leading-relaxed">{marketAdvice}</p>
+                      </div>
+                    </motion.div>
+                  )}
               </div>
 
               {/* Action Sidebar */}

@@ -26,6 +26,16 @@ export default function RootLayout({
               {children}
             </main>
             <Navbar />
+            
+            {/* Google AI Hackathon Badge */}
+            <div className="fixed top-6 right-4 md:right-8 lg:right-16 z-[60] pointer-events-none">
+              <div className="bg-white/90 backdrop-blur-md px-4 py-2 rounded-2xl border border-slate-100 shadow-xl flex items-center gap-2 animate-in fade-in slide-in-from-top-4 duration-1000">
+                <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+                <span className="text-[10px] font-black text-slate-800 uppercase tracking-widest">
+                  Powered by <span className="text-blue-600">Gemini</span>
+                </span>
+              </div>
+            </div>
           </div>
         </AuthProvider>
       </body>
